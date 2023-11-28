@@ -1,0 +1,2 @@
+class GroupShoppingsController < ApplicationController
+end
