@@ -10,27 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_27_062413) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_28_093856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "group_shoppings", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "shopping_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "group_id", null: false
+    t.bigint "shoppings_id", null: false
     t.index ["group_id"], name: "index_group_shoppings_on_group_id"
-    t.index ["shopping_id"], name: "index_group_shoppings_on_shopping_id"
+    t.index ["shoppings_id"], name: "index_group_shoppings_on_shoppings_id"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "icon"
-    t.bigint "user_id", null: false
-    t.bigint "shopping_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["shopping_id"], name: "index_groups_on_shopping_id"
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_groups_on_user_id"
   end
 
@@ -39,16 +37,25 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_062413) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "author_id", null: false
+    t.index ["author_id"], name: "index_shoppings_on_author_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "group_shoppings", "groups", on_delete: :cascade
-  add_foreign_key "group_shoppings", "shoppings", on_delete: :cascade
-  add_foreign_key "groups", "shoppings", on_delete: :cascade
+  add_foreign_key "group_shoppings", "groups"
+  add_foreign_key "group_shoppings", "shoppings", column: "shoppings_id", on_delete: :cascade
   add_foreign_key "groups", "users", on_delete: :cascade
+  add_foreign_key "shoppings", "users", column: "author_id", on_delete: :cascade
 end
