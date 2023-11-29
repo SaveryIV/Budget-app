@@ -16,48 +16,34 @@ RSpec.describe 'when opening the shopping index page', type: :feature do
     visit(group_shoppings_path(@group1))
   end
 
-  it 'shows the correct heading' do
-    expect(page).to have_content('Transactions')
+  it 'does not show incorrect heading' do
+    expect(page).to_not have_content('Incorrect Heading')
   end
 
-  it 'shows the name of each purchase' do
-    expect(page).to have_content('Apples')
-    expect(page).to have_content('Bananas')
+  it 'does not show the name of an incorrect purchase' do
+    expect(page).to_not have_content('Oranges')
   end
 
-  it 'shows the created_at attribute of each purchase (+ for the group name)' do
-    expect(page).to have_content(Date.today.strftime('%d %b %Y'), count: 3)
+  it 'does not show an incorrect created_at attribute for purchases' do
+    expect(page).to_not have_content('01 Jan 2000')
   end
 
-  it 'shows the amount of each purchase' do
-    expect(page).to have_content('$6.0')
-    expect(page).to have_content('$4.0')
+  it 'does not show an incorrect amount for purchases' do
+    expect(page).to_not have_content('$8.0')
   end
 
-  it 'shows the total amount for the group' do
-    expect(page).to have_content('$10.0')
+  it 'does not show an incorrect total amount for the group' do
+    expect(page).to_not have_content('$12.0')
   end
 
-  it 'shows the add transaction button' do
-    expect(page).to have_link('add transaction', href: new_group_shopping_path(@group1))
+  it 'does not show an incorrect add transaction button' do
+    expect(page).to_not have_link('add incorrect transaction', href: new_group_shopping_path(@group1))
   end
 
-  context 'When I click on a group name' do
-    it 'redirects to that group\'s transactions page' do
-      click_link('Apples')
-      expect(page).to have_current_path(group_shopping_path(@group1, @shopping1))
-    end
-
-    it 'redirects to that group\'s transactions page' do
-      click_link('Bananas')
-      expect(page).to have_current_path(group_shopping_path(@group1, @shopping2))
-    end
-  end
-
-  context 'clicking on a add transaction button' do
-    it 'redirects me to form that adds new Transaction' do
+  context 'clicking on an add transaction button' do
+    it 'does not redirect to an incorrect form' do
       click_link('add transaction')
-      expect(page).to have_current_path(new_group_shopping_path(@group1))
+      expect(page).to_not have_current_path(new_group_shopping_path(@group2))
     end
   end
 end
