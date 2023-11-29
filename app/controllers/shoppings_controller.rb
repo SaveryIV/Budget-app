@@ -38,15 +38,15 @@ class ShoppingsController < ApplicationController
     @group = Group.find(params[:group_id])
     @shopping = @group.shoppings.find(params[:id])
     @groups = Group.where(id: shoppings_params[:group_ids])
-  
+
     if @groups.empty?
       flash.now[:error] = 'Please choose at least one category!'
       render :edit
     elsif @shopping.update(shoppings_params.except(:group_ids))
       @shopping.groups.clear
-  
+
       @shopping.groups << @groups
-  
+
       flash[:success] = 'Transaction has been updated successfully!'
       redirect_to group_shoppings_path(@group)
     else
@@ -54,7 +54,6 @@ class ShoppingsController < ApplicationController
       render :edit
     end
   end
-  
 
   def destroy
     @shopping = Shopping.find(params[:id])

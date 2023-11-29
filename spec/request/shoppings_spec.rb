@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Shoppings', type: :request do
   let(:group) { Group.create(user: @user, name: 'Food', icon: 'missing_avatar.png') }
   let(:shopping) { Shopping.create(name: 'Apples', amount: 5, author: @user) }
-  let(:group_shopping) { GroupShopping.create(group: group, shopping: shopping) }
+  let(:group_shopping) { GroupShopping.create(group:, shopping:) }
   let(:valid_attributes) { { 'name' => 'Bananas', 'amount' => 5, 'author' => @user, 'group_ids' => [group.id] } }
 
   before :each do
