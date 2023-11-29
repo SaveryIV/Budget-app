@@ -13,10 +13,10 @@
     <%= content_tag :div, msg, class: name %>
   <% end -%>
   
-  <%= form_with(url: group_shoppings_path, model: @shopping, method: :patch, class: "form") do |f| %>
+  <%= form_with(url: group_shopping_path, model: @shopping, method: :patch, class: "form") do |f| %>
     <div class="field">
       <%= f.label :name, "name" %>
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Football equipment" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Bodyshop cream" %>
     </div>
 
     <div class="field">
