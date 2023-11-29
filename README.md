@@ -63,6 +63,7 @@ In order to use this project.. Clone this repository to your desired folder by:
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 - The Live Demo is available [here](https://budget-app-5id6.onrender.com)
+- Link to my presentation video [here](https://www.loom.com/share/bd43893d21b1464fb8af0ff36612c9b7)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
